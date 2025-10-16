@@ -31,9 +31,9 @@ colors = {
 
 
 pred_plates = {
-    "auto": os.getenv("AUTO_PLATE"),
-    "car": os.getenv("CAR_PLATE"),
-    "scooter": os.getenv("SCOOTER_PLATE")
+    "auto": os.getenv("AUTO"),
+    "car": os.getenv("CAR"),
+    "scooter": os.getenv("SCOOTER")
 }
 
 def convert_video(input_path, output_path):
