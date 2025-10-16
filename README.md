@@ -70,7 +70,7 @@ python manage.py runserver
 
 ### FFmpeg Installation
 
-* **Windows**: [Download FFmpeg](https://ffmpeg.org/download.html) → Add to PATH
+* **Windows**: [Download FFmpeg](https://ffmpeg.org/download.html) 
 * **macOS**: `brew install ffmpeg`
 * **Linux**: `sudo apt install ffmpeg`
 
