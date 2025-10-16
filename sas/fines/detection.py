@@ -3,7 +3,11 @@ import numpy as np
 from ultralytics import YOLO
 import os
 import subprocess
-import uuid  # To generate unique filenames
+import uuid
+from dotenv import load_dotenv  # <-- NEW
+
+# Load environment variables
+load_dotenv()
 
 # Class names mapping
 class_names = {
@@ -17,28 +21,24 @@ class_names = {
 
 # Assign colors
 colors = {
-    0: (255, 165, 0),  # Auto - Orange
-    1: (0, 255, 0),  # Car - Green
-    2: (255, 0, 0),  # Hand - Blue
-    3: (0, 0, 255),  # Number Plate - Red
-    4: (255, 255, 0),  # Scooter - Yellow
-    5: (0, 0, 255),  # Waste - Red
+    0: (255, 165, 0),
+    1: (0, 255, 0),
+    2: (255, 0, 0),
+    3: (0, 0, 255),
+    4: (255, 255, 0),
+    5: (0, 0, 255),
 }
 
-# Predefined number plates for detected vehicles
-predefined_plates = {
-    "auto": "KL06 G7092",
-    "car": "KL05 AG 4446",
-    "scooter": "KL35 K 8975"
+
+pred_plates = {
+    "auto": os.getenv("AUTO_PLATE"),
+    "car": os.getenv("CAR_PLATE"),
+    "scooter": os.getenv("SCOOTER_PLATE")
 }
 
 def convert_video(input_path, output_path):
-    """
-    Converts the processed video to MP4 using FFmpeg.
-    """
     command = [
         "ffmpeg", "-i", input_path,
-       
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",
         "-c:a", "aac", "-strict", "experimental",
         output_path
@@ -50,13 +50,10 @@ def convert_video(input_path, output_path):
         print(f"❌ FFmpeg Error: {e}")
 
 def detect_objects(input_file, is_video):
-    """
-    Detect objects in an image or video using YOLO and return the processed file.
-    """
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     model_path = os.path.join(BASE_DIR, "app", "templates", "fintun final nav part2.pt")
     model = YOLO(model_path)
-    
+
     detected_plates = []
     processed_video_path = None
 
@@ -70,7 +67,7 @@ def detect_objects(input_file, is_video):
             for box in r.boxes:
                 class_id = int(box.cls[0])
                 label = class_names.get(class_id, "Unknown")
-                plate_text = predefined_plates.get(label, "N/A")
+                plate_text = pred_plates.get(label, "N/A")
                 detected_plates.append(f"{label}, Plate:{plate_text}")
                 print(f"Detected in Image: {label}, Plate: {plate_text}")
         return None, detected_plates  
@@ -81,15 +78,14 @@ def detect_objects(input_file, is_video):
             print(f"Error: Unable to read video {input_file}")
             return None, []
 
-        unique_id = uuid.uuid4().hex[:6]  # Generate a short unique ID
+        unique_id = uuid.uuid4().hex[:6]
         processed_video_filename = f"processed_{unique_id}.avi"
         converted_video_filename = f"converted_{unique_id}.mp4"
 
-        processed_video_path = os.path.join(BASE_DIR, "media","uploads" ,"processed_videos", processed_video_filename)
-        converted_video_path = os.path.join(BASE_DIR, "media","uploads", "processed_videos", converted_video_filename)
-        #convert_video(processed_video_path,converted_video_path,width=1800,height=180)
+        processed_video_path = os.path.join(BASE_DIR, "media", "processed_videos", processed_video_filename)
+        converted_video_path = os.path.join(BASE_DIR, "media", "processed_videos", converted_video_filename)
 
-        fourcc = cv2.VideoWriter_fourcc(*"XVID")
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
         out = cv2.VideoWriter(processed_video_path, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
 
         while True:
@@ -101,27 +97,26 @@ def detect_objects(input_file, is_video):
                 for box in r.boxes:
                     class_id = int(box.cls[0])
                     label = class_names.get(class_id, "Unknown")
-                    plate_text = predefined_plates.get(label, "N/A")
+                    plate_text = pred_plates.get(label, "N/A")
+
+                    # Mask for display only
+                    display_plate = ''.join('*' if c.isalnum() else c for c in plate_text)
+
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
+                    color = colors.get(class_id, (0, 255, 255))
 
-                    # Choose color
-                    color = colors.get(class_id, (0, 255, 255))  # Default: Cyan
-
-                    # Draw rectangle
                     cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-
-                    # Display label
-                    text = f"{label}: {plate_text}"
+                    text = f"{label}: {display_plate}"
                     cv2.putText(frame, text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
                     detected_plates.append(f"{label}, Plate: {plate_text}")
+
             out.write(frame)
 
         cap.release()
         out.release()
 
         print(f"✅ Processed video saved at: {processed_video_path}")
-
-        # Convert to MP4 format using FFmpeg
         convert_video(processed_video_path, converted_video_path)
 
         return converted_video_path, detected_plates
