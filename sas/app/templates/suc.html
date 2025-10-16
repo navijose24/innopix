@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+		@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+		:root{ --bg-0:#070b10; --bg-1:#0b1118; --panel:rgba(10,16,24,.72); --text:#e8faff; --muted:#9fb3c3; --accent:#00e5ff; --accent-2:#39ff14; --border:rgba(0,229,255,.2) }
+
+		body{
+			display:flex; justify-content:center; align-items:center; min-height:100vh; flex-direction:column; text-align:center;
+			font-family:'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:var(--text);
+			background: radial-gradient(1200px 800px at 20% 10%, rgba(0,229,255,.06), transparent 55%),
+					radial-gradient(1200px 900px at 80% 90%, rgba(57,255,20,.05), transparent 55%),
+					linear-gradient(180deg, var(--bg-0), var(--bg-1));
+			background-attachment: fixed;
+		}
+
+		.container{
+			border:1px solid var(--border); padding:22px 24px; border-radius:14px; background:var(--panel);
+			box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.02);
+			backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+			animation: cardFade .6s ease both;
+			max-width:640px; width:min(92vw, 640px);
+		}
+
+		h1{ margin:0 0 8px; text-shadow:0 0 14px rgba(0,229,255,.35) }
+		p{ margin:6px 0; color:var(--muted) }
+
+		input{
+			padding:10px 12px; margin-top:12px; width:80%; max-width:420px; border:1px solid var(--border); border-radius:12px;
+			background:rgba(6,12,18,.7); color:var(--text); outline:none;
+			font-family:'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+			transition: box-shadow .2s ease, border-color .2s ease, transform .08s ease;
+		}
+		input::placeholder{ color:#6f8596 }
+		input:focus{ box-shadow:0 0 0 3px rgba(0,229,255,.25), 0 0 18px rgba(0,229,255,.2); border-color:var(--accent) }
+
+		button{
+			margin-top:12px; padding:12px 14px; background:linear-gradient(90deg, rgba(57,255,20,.18), rgba(0,229,255,.18)); color:var(--text);
+			border:1px solid var(--accent-2); cursor:pointer; border-radius:12px; letter-spacing:.12em;
+			transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
+		}
+		button:hover{ transform:translateY(-1px) scale(1.03); box-shadow:0 0 14px rgba(57,255,20,.55), 0 0 24px rgba(0,229,255,.35) }
+		button:active{ transform:translateY(0) scale(.99) }
+
+		@keyframes cardFade{ from{ opacity:0; transform: translateY(10px) } to{ opacity:1; transform:none } }
+
+		@media (max-width:520px){
+			input{ width:100% }
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Successful 🎉</h1>
+        <p>Thank you for your payment.</p>
+        <p>A receipt will be sent to your email.</p>
+
+        <!-- Email Form -->
+        <form action="https://formspree.io/f/meoaogrz" method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="hidden" name="message" value="Your payment of ₹500 has been received.">
+            <button type="submit">Send Receipt</button>
+        </form>
+    </div>
+</body>
+</html>

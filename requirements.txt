@@ -1,0 +1,35 @@
+# Django Framework
+Django==5.1.7
+
+# Computer Vision and Machine Learning
+opencv-python==4.8.1.78
+ultralytics==8.0.196
+numpy==1.24.3
+
+# HTTP Requests
+requests==2.31.0
+
+# Additional dependencies for video processing
+Pillow==10.0.1
+
+# Development and Testing
+pytest==7.4.2
+pytest-django==4.5.2
+
+# Database (SQLite is included with Python, but for production you might want PostgreSQL)
+# psycopg2-binary==2.9.7  # Uncomment for PostgreSQL
+
+# Static files and media handling
+whitenoise==6.5.0
+
+# Security
+django-cors-headers==4.3.1
+
+# Environment variables
+python-decouple==3.8
+
+# Production server
+gunicorn==21.2.0
+
+# Video processing (FFmpeg is required system dependency)
+# Note: FFmpeg must be installed separately on the system

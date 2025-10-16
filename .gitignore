@@ -1,0 +1,4 @@
+myenv/
+miniproj/uploads/
+miniproj/staticfiles/
+.env

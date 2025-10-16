@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+
+:root {
+    --bg-0: #0b0f14;
+    --bg-1: #0e1620;
+    --card: rgba(12, 20, 28, 0.7);
+    --text: #e6f6ff;
+    --muted: #7b8a97;
+    --neon-green: #39ff14;
+    --neon-cyan: #00e5ff;
+    --border: rgba(0, 229, 255, 0.25);
+    --glow: 0 0 12px rgba(57, 255, 20, 0.55), 0 0 24px rgba(0, 229, 255, 0.35);
+}
+
+body {
+    font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: radial-gradient(1200px 800px at 20% 10%, rgba(0, 229, 255, 0.08), transparent 50%),
+                radial-gradient(1200px 900px at 80% 90%, rgba(57, 255, 20, 0.07), transparent 50%),
+                linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+}
+
+.card {
+    background: var(--card);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 600ms ease both;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(57, 255, 20, 0.15));
+    mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask-composite: xor; /* Safari */
+            mask-composite: exclude; /* Others */
+    padding: 1px;
+    border-radius: 14px;
+}
+
+/* Section Titles */
+.card h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+/* Live AI Monitoring & Map Sections */
+.monitor, .map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(400px 200px at 50% 50%, rgba(0, 229, 255, 0.08), transparent 60%), #0f1822;
+    border-radius: 12px;
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    border: 1px solid var(--border);
+    box-shadow: var(--glow);
+    overflow: hidden;
+}
+
+.monitor i, .map i {
+    font-size: 30px;
+    color: var(--neon-cyan);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(6, 12, 18, 0.6);
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+th {
+    background: linear-gradient(180deg, rgba(0, 229, 255, 0.12), rgba(0, 229, 255, 0.05));
+    color: var(--text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+tbody tr {
+    transition: transform 160ms ease, background-color 160ms ease;
+}
+
+tbody tr:hover {
+    background: rgba(57, 255, 20, 0.05);
+}
+
+td i {
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--neon-green);
+    filter: drop-shadow(0 0 6px rgba(57, 255, 20, 0.6));
+}
+
+.pay-btn {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--neon-green);
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    box-shadow: 0 0 0 rgba(57, 255, 20, 0);
+}
+
+.pay-btn:hover {
+    background: rgba(57, 255, 20, 0.1);
+    box-shadow: 0 0 12px rgba(57, 255, 20, 0.6), 0 0 24px rgba(0, 229, 255, 0.4);
+    transform: translateY(-1px) scale(1.03);
+}
+
+/* Video tweaks */
+video#player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Fade/slide in */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (min-width: 992px) {
+    .container {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+    /* Keep three cards stacked by spanning full width appropriately */
+    .container > .card:nth-child(1) { grid-column: 1 / -1; }
+    .container > .card:nth-child(2) { grid-column: 1 / -1; }
+    .container > .card:nth-child(3) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+    body { padding: 14px; }
+    .monitor, .map { height: 46vh; }
+    th, td { padding: 12px 10px; font-size: 14px; }
+    .card h2 { font-size: 20px; }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - DumpDetec</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            padding: 15px 50px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            margin: 50px auto;
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #000;
+            box-shadow: 5px 5px 0px black;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #000;
+            font-size: 18px;
+            font-family: 'VT323', monospace;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #000;
+            background-color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'VT323', monospace;
+        }
+
+        button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #response-message {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">DD</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <p>Got questions? Reach out and we’ll respond as soon as possible.</p>
+
+        <form id="contact-form" action="https://formspree.io/f/meoaogrz" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+        
+            <button type="submit">Send Message</button>
+            <p id="response-message"></p>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("contact-form");
+            const responseMessage = document.getElementById("response-message");
+
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+                const action = form.getAttribute("action");
+
+                try {
+                    const response = await fetch(action, {
+                        method: "POST",
+                        body: formData,
+                        headers: { "Accept": "application/json" }
+                    });
+
+                    if (response.ok) {
+                        responseMessage.textContent = "Message sent successfully!";
+                        responseMessage.style.color = "green";
+                        form.reset(); // Clear form
+                    } else {
+                        responseMessage.textContent = "Error sending message. Try again!";
+                        responseMessage.style.color = "red";
+                    }
+                } catch (error) {
+                    responseMessage.textContent = "Network error. Please try later!";
+                    responseMessage.style.color = "red";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

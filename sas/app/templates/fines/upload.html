@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block content %}
+<div class="card shadow-lg p-4">
+    <h2 class="text-center text-primary">Upload Image or Video</h2>
+    <form method="POST" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="file" name="file" class="form-control" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Upload & Detect</button>
+        </div>
+    </form>
+</div>
+
+{% if detected_plates %}
+<div class="card mt-4 p-3 shadow-lg">
+    <h3 class="text-center text-success">Detected Plates</h3>
+    <ul class="list-group">
+        {% for plate in detected_plates %}
+        <li class="list-group-item">{{ plate }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- ✅ *Auto Redirect After 3 Seconds* -->
+<script>
+    setTimeout(function() {
+        window.location.href = "{% url 'dashboard' %}";
+    }, 10000);  // Redirect after 3 seconds
+</script>
+{% endif %}
+{% endblock %}

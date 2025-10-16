@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar text-white p-3 vh-100">
+            <h4 class="text-center">Admin Panel</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">🏠 Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'issue_fine' %}">📜 Issue Fine</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'upload_files' %}">📤 Upload Files</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">📊 Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{% url 'admin_logout' %}">🚪 Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2>Admin Dashboard</h2>
+            </div>
+
+            <!-- Recent Fines Table -->
+            <h3 class="mt-4">Recent Fines</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Vehicle No.</th>
+                            <th>Owner Name</th>
+                            <th>Phone</th>
+                            <th>Amount</th>
+                            <th>STATUS</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for owner in owners %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ owner.number_plate }}</td>
+                            <td>{{ owner.owner_name }}</td>
+                            <td>{{ owner.phone_no }}</td>
+                            <td>${{owner.fine_amount|default:"500"}}</td>
+                            <td>
+                                {% if owner.fine_status == "Paid" %}
+                                <span class="badge bg-success">Paid</span>
+                                {% else %}
+                                <span class="badge bg-danger">Unpaid</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ owner.timestamp }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No matching records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

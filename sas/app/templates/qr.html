@@ -1,0 +1,94 @@
+<!--{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan QR Code</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            margin-top: 20px;
+            border: 5px solid #000;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Scan the QR Code Below</h2>
+    <img src={% static "gpay.jpg" %} alt="QR Code">
+    <p>Scan this QR code to visit the website.</p>
+</body>
+
+</html>-->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan QR Code</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+:root{ --bg-0:#070b10; --bg-1:#0b1118; --panel:rgba(10,16,24,.72); --text:#e8faff; --muted:#9fb3c3; --accent:#00e5ff; --accent-2:#39ff14; --border:rgba(0,229,255,.2) }
+
+body{
+    display:flex; justify-content:center; align-items:center; min-height:100vh; flex-direction:column; text-align:center;
+    font-family:'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:var(--text);
+    background: radial-gradient(1200px 800px at 20% 10%, rgba(0,229,255,.06), transparent 55%),
+                radial-gradient(1200px 900px at 80% 90%, rgba(57,255,20,.05), transparent 55%),
+                linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    background-attachment: fixed;
+}
+
+.container{
+    border:1px solid var(--border); padding:22px 24px; border-radius:14px; background:var(--panel);
+    box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.02);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    animation: cardFade .6s ease both;
+}
+
+img{
+    margin-top:12px; border:1px solid var(--border); padding:6px; width:200px; height:200px; border-radius:12px;
+    box-shadow:0 0 16px rgba(0,229,255,.25);
+}
+
+.description{ font-size:14px; margin-top:10px; color:var(--muted) }
+
+.pay-btn{
+    display:inline-block; margin-top:12px; background:linear-gradient(90deg, rgba(57,255,20,.18), rgba(0,229,255,.18)); color:var(--text);
+    border:1px solid var(--accent-2); padding:10px 14px; border-radius:12px; cursor:pointer; text-decoration:none;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.pay-btn:hover{ transform:translateY(-1px) scale(1.03); box-shadow:0 0 14px rgba(57,255,20,.55), 0 0 24px rgba(0,229,255,.35) }
+
+@keyframes cardFade{ from{ opacity:0; transform: translateY(10px) } to{ opacity:1; transform:none } }
+
+@media (max-width:520px){
+    .container{ width:min(92vw, 420px); padding:18px }
+    img{ width:180px; height:180px }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Scan the QR Code</h2>
+        <img src="{% static 'gpay.jpg' %}" alt="QR Code">
+        <p class="description">Scan this QR code to proceed.</p>
+        <!--<button class="pay-btn" onclick="window.location.href='suc.html'">Payment Done</button>-->
+        <a href="{% url 'suc'%}"class="pay-btn">Payment Done</a>
+    </div>
+</body>
+</html>
+
+

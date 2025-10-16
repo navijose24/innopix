@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+
+html{ scroll-behavior:smooth }
+
+body{
+    font-family:'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    text-align:center;
+    background: radial-gradient(1200px 800px at 20% 10%, rgba(0, 229, 255, 0.06), transparent 55%),
+                radial-gradient(1200px 900px at 80% 90%, rgba(57, 255, 20, 0.05), transparent 55%),
+                linear-gradient(180deg, #070b10, #0b1118);
+    color:#e8faff;
+    overflow:hidden;
+    margin:0; display:flex; align-items:center; justify-content:center; height:100vh; position:relative; box-sizing:border-box;
+}
+
+.header{ position:fixed; top:0; width:99%; height:50px; display:flex; align-items:center; gap:20px; padding:10px 20px; background:rgba(3,8,14,.65); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:#e8faff; font-size:1.5rem; border-bottom:1px solid rgba(0,229,255,.2); border-left:3px solid rgba(57,255,20,.6); box-shadow:0 6px 20px rgba(0,0,0,.35) }
+
+#text-container{ border:1px solid rgba(0,229,255,.25); padding:10px; background:rgba(10,16,24,.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); box-shadow:0 0 12px rgba(0,229,255,.35); width:80%; text-align:center; border-radius:12px }
+
+.nav-links{ display:flex; gap:60px; margin-left:3% }
+
+.nav-links a{ color:#e8faff; text-decoration:none; transition:color .18s ease, text-shadow .18s ease }
+.nav-links a:hover{ color:#00e5ff; text-shadow:0 0 10px rgba(0,229,255,.5) }
+
+.logo{ color:#e8faff; font-size:28px; text-shadow:0 0 10px rgba(0,229,255,.35) }
+
+.container{ position:absolute; top:49%; left:-50%; white-space:nowrap; font-size:4rem; display:flex; align-items:center }
+
+
+
+.car-container{ position:absolute; bottom:19%; left:-200px }
+
+.car{ width:850px; filter:grayscale(100%) contrast(200%); opacity:.9 }
+
+/* Keyframe Animations */
+@keyframes moveCar{ 0%{ left:-200px } 70%{ left:70% } 100%{ left:100% } }
+
+@keyframes moveText{ 0%{ left:-50%; opacity:0 } 30%{ opacity:1 } 70%{ left:10% } 100%{ left:10% } }
+
+/* Applying animations */
+.car-container{ animation:moveCar 3s linear forwards }
+
+.container{ animation:moveText 4s linear forwards }
+
+/* Typing Effect */
+.typing{ overflow:hidden; border-right:3px solid #00e5ff; white-space:nowrap; margin:0 auto; letter-spacing:2px; display:inline-block; animation: typing 2s steps(10, end) forwards, blink 0.5s step-end infinite }
+
+
+
+@keyframes typing{ from{ width:0 } to{ width:100% } }
+
+@keyframes blink{ 50%{ border-color: transparent } }
+
+/* Responsive tweaks */
+@media (max-width: 768px){
+    .header{ width:100%; gap:12px }
+    .container{ font-size: 2.6rem }
+    .car{ width: 540px }
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DumpDetec Blog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        /* Retro Minimalist Styling */
+        body {
+            font-family: 'VT323', 'monospace';
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Blog Grid */
+        .blog-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            flex-wrap: wrap;
+        }
+
+        .blog-card {
+            background: #fff;
+            padding: 20px;
+            width: 300px;
+            min-height: 400px;
+            border: 1px solid #111;
+            transition: transform 0.3s ease, background 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            background: #fff;
+        }
+
+        .blog-card h2 {
+            font-size: 1.5rem;
+        }
+
+        .blog-card a {
+            color: #111;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        .img{
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DUMPDETEC BLOG</h1>
+        <p>Insights on AI-powered waste detection</p>
+    </header>
+
+    <main>
+        <section class="blog-container">
+            <article class="blog-card">
+                <h2>AI in Waste Management</h2>
+                <p>How artificial intelligence is revolutionizing waste detection.</p>
+                <a href="#">Read More →</a>
+                <img src="https://i.pinimg.com/236x/13/b9/e6/13b9e63623b8ce845acdce0a7219d0d3.jpg" class="img">
+            </article>
+
+            <article class="blog-card">
+                <h2>Reducing Landfill Impact</h2>
+                <p>Exploring AI solutions for efficient waste sorting.</p>
+                <a href="#">Read More →</a>
+                <img src="https://i.pinimg.com/736x/90/46/d8/9046d82b806a8a7688281bd018f71cef.jpg" class="img" >
+            </article>
+
+            <article class="blog-card">
+                <h2>Smart Cities & AI</h2>
+                <p>Using technology to create cleaner urban environments.</p>
+                <a href="#">Read More →</a>
+                <img src="https://i.pinimg.com/236x/af/ba/82/afba82976357a1a005aad9e7c773f546.jpg" class ="img">
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 DumpDetec. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const blogCards = document.querySelectorAll(".blog-card");
+
+            blogCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+                }, index * 200); // Staggered fade-in effect
+            });
+        });
+    </script>
+
+</body>
+</html>
